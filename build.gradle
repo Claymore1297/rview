@@ -28,26 +28,25 @@ ext {
         firebase_crashlytics        : '17.0.0',
         gson                        : '2.8.6',
         retrofit2                   : '2.8.1',
-        // Keep okHttp in 3.12.x, since 3.13+ requires Android 5
         okhttp3                     : '3.12.10',
         okio                        : '2.5.0',
         okhttp_digest               : 'f13c5b8f79',
         rxjava                      : '2.2.19',
         rxandroid                   : '2.1.1',
         rxloader2                   : 'edeebf0a1a',
-        // Keep commons-io in 2.5. Prior android versions doesn't have fully support for Files api.
         commons_io                  : '2.5',
         antlrv3                     : '3.5.2',
         smoothprogressbar           : '1.1.0',
         glide                       : '4.11.0',
         prettytime                  : '4.0.5.Final',
-        flexboxlayout               : '2.0.1',
-        floatingsearchview          : '2d435bead5',
-        androidsvg                  : '3511e13649',
+        flexboxlayout               : '2.0.1',      // Maven Central
+        floatingsearchview          : '2d435bead5', // JitPack
+        androidsvg                  : '1.4',        // neuere Version, Maven Central
         keyboardvisibilityevent     : '2.3.0',
         better_link_movement_method : '2.2.0',
         aboutlibraries              : '8.1.2',
-        aboutlibraries_definitions  : '8.1.0'
+        aboutlibraries_definitions  : '8.1.0',
+        fastadapter                 : '5.6.0'       // neuere Version, Maven Central
     ]
 
     testLibraries = [
@@ -64,7 +63,9 @@ allprojects {
     buildscript {
         repositories {
             google()
+            mavenCentral()
             jcenter()
+            maven { url "https://jitpack.io" }
         }
         dependencies {
             classpath 'com.android.tools.build:gradle:3.6.3'
