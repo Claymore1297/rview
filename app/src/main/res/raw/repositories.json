@@ -46,7 +46,6 @@
   {"name":"Golang", "url":"https://go-review.googlesource.com/", "ci_accounts": "^(Gobot Gobot)$"},
   {"name":"GROMACS", "url":"https://gerrit.gromacs.org/", "ci_accounts": "^(Jenkins)$"},
   {"name":"gVisor", "url":"https://gvisor-review.googlesource.com/", "ci_accounts": "^(kokoro)$"},
-  {"name":"GZOSP", "url":"https://review.gzospgzr.com/"},
   {"name":"GWT", "url":"https://gwt-review.googlesource.com/", "ci_accounts": "^(.* Jenkins)$"},
   {"name":"halogenOS", "url":"https://review.halogenos.org/"},
   {"name":"Hyperledger", "url":"https://gerrit.hyperledger.org/r/", "ci_accounts": "^(Hyperledger Jobbuilder)$"},
