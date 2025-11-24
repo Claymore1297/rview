@@ -64,5 +64,8 @@ android {
             resValue "string", "gdrive.client_secret", ""
         }
     }
+    dataBinding {
+        enabled = true
+    }
 
 }
