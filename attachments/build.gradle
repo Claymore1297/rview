@@ -65,7 +65,4 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
-    }
 }

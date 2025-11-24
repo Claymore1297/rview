@@ -66,15 +66,10 @@ android {
         resValue "string", "fcm_app_id", "1:577867348267:android:01dee9b4cab97d4a"
         resValue "string", "fcm_sender_id", "577867348267"
 
-        return void
     }
 
     lintOptions{
         disable 'MissingDefaultResource'
-    }
-
-    dataBinding {
-        enabled = true
     }
 
     signingConfigs {
@@ -92,7 +87,6 @@ android {
                 storeType ksProps['storeType']
             }
 
-            return void
         }
     }
 
@@ -116,7 +110,6 @@ android {
             resValue "string", "com.crashlytics.android.build_id", "<empty>"
             resValue "bool", "fcm_enable_crashlytics", "false"
 
-            return void
         }
         release {
             debuggable false
@@ -146,11 +139,9 @@ android {
                 resValue "string", "com.crashlytics.android.build_id", "<empty>"
                 resValue "bool", "fcm_enable_crashlytics", "false"
             }
-            return void
         }
     }
 
-    return void
 }
 
 def addActivityAliases(manifest) {
@@ -211,9 +202,9 @@ def registerAddActivityAliases(task, flavor, build) {
 }
 
 tasks.whenTaskAdded { task ->
-    project.("android").productFlavors.all { flavor ->
+    project.android.productFlavors.all { flavor ->
         def flavorName = flavor.name.capitalize().toString()
-        project.("android").buildTypes.all { build ->
+        project.android.buildTypes.all { build ->
             def buildName = build.name.capitalize().toString()
             def compileTask = "process${flavorName}${buildName}Resources".toString()
             if (compileTask == task.name) {

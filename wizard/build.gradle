@@ -38,7 +38,4 @@ android {
         return void
     }
 
-    dataBinding {
-        enabled = true
-    }
 }
