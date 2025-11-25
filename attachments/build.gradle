@@ -1,26 +1,11 @@
-/*
- * Copyright (C) 2017 Jorge Ruesga
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-apply plugin: 'com.android.library'
-apply from: "${rootDir}/flavors.gradle"
+plugins {
+    id 'com.android.library'
+}
 
 def libraries = rootProject.ext.libraries
+def testLibraries = rootProject.ext.testLibraries
 
 dependencies {
-    api "com.google.android.material:material:${libraries.material}"
     api "com.google.code.gson:gson:${libraries.gson}"
     api("com.squareup.retrofit2:retrofit:${libraries.retrofit2}") {
         exclude group: 'io.reactivex', module: 'rxjava'
@@ -30,42 +15,31 @@ dependencies {
     api "com.squareup.okhttp3:okhttp:${libraries.okhttp3}"
     api "com.squareup.okhttp3:logging-interceptor:${libraries.okhttp3}"
     api "com.squareup.okio:okio:${libraries.okio}"
+    api "com.github.jruesga:okhttp-digest:${libraries.okhttp_digest}@aar"
     api "io.reactivex.rxjava2:rxjava:${libraries.rxjava}"
     api "io.reactivex.rxjava2:rxandroid:${libraries.rxandroid}"
     api "com.github.jruesga:rxloader:${libraries.rxloader2}"
-    gmsApi "com.google.android.gms:play-services-auth:${libraries.play_services_auth}"
+    api "org.antlr:antlr-runtime:${libraries.antlrv3}"
+
+    testImplementation "net.iharder:base64:${testLibraries.base64}"
 }
 
 android {
+    namespace "com.ruesga.rview.attachments"
+    compileSdk 34
+
     defaultConfig {
-        consumerProguardFiles file('proguard-consumer.txt')
-        vectorDrawables.useSupportLibrary = true
-        return void
+        multiDexEnabled true
+        minSdk 19
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
     }
 
-    flavorDimensions("privacy")
-    productFlavors {
-        gms {
-            dimension "privacy"
-            if (project.file('auth.properties').exists()) {
-                Properties authProps = new Properties()
-                authProps.load(new FileInputStream(project.file('auth.properties')))
-
-                resValue "string", "gdrive.client_id", authProps["gdrive.client_id"]
-                resValue "string", "gdrive.client_secret", authProps["gdrive.client_secret"]
-            } else {
-                resValue "string", "gdrive.client_id", ""
-                resValue "string", "gdrive.client_secret", ""
-            }
-        }
-        floss {
-            dimension "privacy"
-            resValue "string", "gdrive.client_id", ""
-            resValue "string", "gdrive.client_secret", ""
-        }
+    compileOptions {
+        // Gradle 9 requires Java 17 toolchain support
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    dataBinding {
-        enabled = true
-    }
-
 }
+

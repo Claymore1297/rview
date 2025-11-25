@@ -1,47 +1,64 @@
-/*
- * Copyright (C) 2016 Jorge Ruesga
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
 
-apply plugin: 'com.android.library'
+android {
+    namespace "com.ruesga.rview.gerrit"
+    compileSdk 34
 
-def libraries = rootProject.ext.libraries
-def testLibraries = rootProject.ext.testLibraries
+    defaultConfig {
+        minSdk 21
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles(
+                getDefaultProguardFile('proguard-android-optimize.txt'),
+                'proguard-rules.pro'
+            )
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
 
 dependencies {
+    // --- keep your existing deps ---
     api "com.google.code.gson:gson:${libraries.gson}"
-    api("com.squareup.retrofit2:retrofit:${libraries.retrofit2}") {
-        exclude group: 'io.reactivex', module: 'rxjava'
-    }
+    api "com.squareup.retrofit2:retrofit:${libraries.retrofit2}"
     api "com.squareup.retrofit2:converter-gson:${libraries.retrofit2}"
     api "com.squareup.retrofit2:adapter-rxjava2:${libraries.retrofit2}"
     api "com.squareup.okhttp3:okhttp:${libraries.okhttp3}"
     api "com.squareup.okhttp3:logging-interceptor:${libraries.okhttp3}"
-    api "com.squareup.okio:okio:${libraries.okio}"
-    api "com.github.jruesga:okhttp-digest:${libraries.okhttp_digest}@aar"
     api "io.reactivex.rxjava2:rxjava:${libraries.rxjava}"
     api "io.reactivex.rxjava2:rxandroid:${libraries.rxandroid}"
-    api "com.github.jruesga:rxloader:${libraries.rxloader2}"
+
+    // --- ANTLR ---
     api "org.antlr:antlr-runtime:${libraries.antlrv3}"
 
-    testImplementation "net.iharder:base64:${testLibraries.base64}"
+    // --- OkHttp Digest ---
+    api 'com.github.rburgst:okhttp-digest:7dc57f886f2d3ad5a4a02a74eb1b73da218d9326'
+
+    // --- FIX: RXLoader fork w/ SafeObservable ---
+    api 'com.github.jruesga:RxLoader:edeebf0a1a32321f5e8957cda0402a29368fd1a8'
+
+
 }
 
-android {
-    defaultConfig {
-        consumerProguardFiles file('proguard-consumer.txt')
-
-        return void
-    }
-}

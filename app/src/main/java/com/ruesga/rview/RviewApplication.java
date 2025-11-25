@@ -31,7 +31,7 @@ import com.ruesga.rview.services.DeviceRegistrationService;
 
 import java.util.List;
 
-public class RviewApplication extends Application {
+public class RviewApplication extends androidx.multidex.MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -69,6 +69,12 @@ public class RviewApplication extends Application {
         // Enable Url Handlers
         enableExternalUrlHandlers();
     }
+
+@Override
+protected void attachBaseContext(Context base) {
+    super.attachBaseContext(base);
+    androidx.multidex.MultiDex.install(this);
+}
 
     @SuppressWarnings("Convert2streamapi")
     private void enableExternalUrlHandlers() {

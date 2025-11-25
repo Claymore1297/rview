@@ -58,8 +58,8 @@ class AceActivityHelper {
 
     private static void setToolbarColor(Context context, CustomTabsIntent.Builder builder) {
         TypedValue typedValue = new TypedValue();
-        if (context.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true)) {
-            builder.setToolbarColor(typedValue.data);
-        }
+//        if (context.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true)) {
+  //          builder.setToolbarColor(typedValue.data);
+    //    }
     }
 }

@@ -1,35 +1,32 @@
-/*
- * Copyright (C) 2017 Jorge Ruesga
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-apply plugin: 'com.android.library'
-
-def libraries = rootProject.ext.libraries
-
-dependencies {
-    api "androidx.appcompat:appcompat:${libraries.androidx_appcompat}"
-    api "androidx.browser:browser:${libraries.androidx_browser}"
-    api "androidx.legacy:legacy-support-v4:${libraries.androidx_legacy}"
-    api "com.google.android.material:material:${libraries.material}"
+plugins {
+    id 'com.android.library'
 }
 
 android {
-    defaultConfig {
-        vectorDrawables.useSupportLibrary = true
-        consumerProguardFiles file('proguard-consumer.txt')
+    namespace "com.ruesga.rview.aceeditor"
+    compileSdk 34
 
-        return void
+    defaultConfig {
+        minSdk 21
+        targetSdk 34
+    //    consumerProguardFiles "consumer-rules.pro"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "androidx.browser:browser:1.7.0"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.2.0"
+
+    // If it uses RxJava:
+    implementation "io.reactivex.rxjava2:rxjava:2.2.21"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    implementation "com.google.android.material:material:1.9.0"
+
+}
+

@@ -1,0 +1,4 @@
+<resources>
+    <attr name="floatingSearch_searchBarTextSize" format="dimension" />
+</resources>
+

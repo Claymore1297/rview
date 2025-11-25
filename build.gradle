@@ -1,142 +1,29 @@
-/*
- * Copyright (C) 2016 Jorge Ruesga
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+// File: build.gradle
+
+plugins {
+    id 'com.android.application' version '8.3.2' apply false
+    id 'com.android.library' version '8.3.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.22' apply false
+}
 
 ext {
     libraries = [
-        androidx_appcompat          : '1.1.0',
-        androidx_browser            : '1.2.0',
-        androidx_cardview           : '1.0.0',
-        androidx_exifinterface      : '1.2.0',
-        androidx_legacy             : '1.0.0',
-        material                    : '1.1.0',
-        play_services_auth          : '18.0.0',
-        firebase_core               : '17.4.1',
-        firebase_messaging          : '20.1.7',
-        firebase_crashlytics        : '17.0.0',
-        gson                        : '2.8.6',
-        retrofit2                   : '2.8.1',
-        okhttp3                     : '3.12.10',
-        okio                        : '2.5.0',
-        okhttp_digest               : 'f13c5b8f79',
-        rxjava                      : '2.2.19',
-        rxandroid                   : '2.1.1',
-        rxloader2                   : 'edeebf0a1a',
-        commons_io                  : '2.5',
-        antlrv3                     : '3.5.2',
-        smoothprogressbar           : '1.1.0',
-        glide                       : '4.11.0',
-        prettytime                  : '4.0.5.Final',
-        flexboxlayout               : '2.0.1',      // Maven Central
-        floatingsearchview          : '2d435bead5', // JitPack
-        androidsvg                  : '1.4',        // neuere Version, Maven Central
-        keyboardvisibilityevent     : '2.3.0',
-        better_link_movement_method : '2.2.0',
-        aboutlibraries              : '8.1.2',
-        aboutlibraries_definitions  : '8.1.0',
-        fastadapter                 : '5.6.0'       // neuere Version, Maven Central
+        gson            : "2.10",
+        retrofit2       : "2.11.0",
+        okhttp3         : "4.12.0",
+        okio            : "3.6.0",
+        rxjava          : "2.2.21",
+        rxandroid       : "2.1.1",
+        rxloader2       : "1.1.0",
+        antlrv3         : "3.5.2",
+        okhttp_digest   : "1.0",
+        glide           : '4.16.0',
+        material        : '1.12.0',
+        appcompat       : '1.6.1'
     ]
 
     testLibraries = [
-        junit                       : '4.13',
-        hamcrest                    : '2.2',
-        mockito                     : '3.3.3',
-        powermock                   : '2.0.7',
-        robolectric                 : '4.3.1',
-        base64                      : '2.3.9'
+        base64 : "2.3.9"
     ]
 }
 
-allprojects {
-    buildscript {
-        repositories {
-            google()
-            mavenCentral()
-            jcenter()
-            maven { url "https://jitpack.io" }
-        }
-        dependencies {
-            classpath 'com.android.tools.build:gradle:3.6.3'
-            classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.2'
-        }
-    }
-
-    repositories {
-        google()
-        jcenter()
-        maven { url "https://jitpack.io" }
-    }
-
-    gradle.projectsEvaluated {
-        tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        }
-    }
-}
-
-subprojects {
-    afterEvaluate {project ->
-        dependencies {
-            testImplementation "junit:junit:${testLibraries.junit}"
-            testImplementation "org.hamcrest:hamcrest-core:${testLibraries.hamcrest}"
-            testImplementation "org.hamcrest:hamcrest-library:${testLibraries.hamcrest}"
-            testImplementation "org.mockito:mockito-core:${testLibraries.mockito}"
-            testImplementation "org.powermock:powermock-module-junit4:${testLibraries.powermock}"
-            testImplementation "org.powermock:powermock-module-junit4-rule:${testLibraries.powermock}"
-            testImplementation "org.powermock:powermock-api-mockito2:${testLibraries.powermock}"
-            testImplementation "org.robolectric:robolectric:${testLibraries.robolectric}"
-        }
-
-        if (project.plugins.hasPlugin('android') || project.plugins.hasPlugin('android-library')) {
-            android {
-                compileSdkVersion 36
-                // https://developer.android.com/studio/releases/build-tools.html
-                buildToolsVersion '29.0.3'
-
-                defaultConfig {
-                    minSdkVersion 16
-                    targetSdkVersion 36
-
-                    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-                }
-
-                compileOptions {
-                    sourceCompatibility = JavaVersion.VERSION_1_8
-                    targetCompatibility = JavaVersion.VERSION_1_8
-                }
-
-                packagingOptions {
-                    exclude 'META-INF/DEPENDENCIES'
-                    exclude 'META-INF/NOTICE'
-                    exclude 'META-INF/LICENSE'
-                    exclude 'META-INF/LICENSE.txt'
-                    exclude 'META-INF/NOTICE.txt'
-                    exclude 'META-INF/rxjava.properties'
-                }
-
-                testOptions.unitTests.includeAndroidResources = true
-
-                testOptions {
-                    unitTests.all {
-                        testLogging {
-                            events "passed", "skipped", "failed", "standardError"
-                            outputs.upToDateWhen {false}
-                        }
-                    }
-                }
-            }
-        }
-    }
-}

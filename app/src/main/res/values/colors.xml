@@ -78,4 +78,6 @@
     <color name="mime_type_powerpoint">#d04323</color>
     <color name="mime_type_pdf">#c30b15</color>
     <color name="mime_type_default">#47454c</color>
+
+    <color name="wizard_text_secondary">#FF888888</color>
 </resources>
