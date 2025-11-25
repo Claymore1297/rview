@@ -46,6 +46,7 @@
 
         <activity
             android:name="com.ruesga.rview.MainActivity"
+            android:exported="true"
             android:theme="@style/AppTheme.NoStatusBarColor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -165,6 +166,7 @@
 
         <receiver
             android:name="com.ruesga.rview.receivers.NotificationReceiver"
+            android:exported="true"
             android:permission="${applicationId}.permissions.PRIVATE_ACCESS">
             <intent-filter>
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
@@ -175,6 +177,7 @@
 
         <receiver
             android:name="com.ruesga.rview.receivers.CacheCleanerReceiver"
+            android:exported="true"
             android:permission="${applicationId}.permissions.PRIVATE_ACCESS">
             <intent-filter>
                 <action android:name="${applicationId}.action.CLEAN_CACHE" />
